@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+        .container {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        #success {
+            margin-top: 15px;
+            padding: 10px;
+            color: green;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Feedback Form</h2>
+        <form id="feedbackForm">
+            <label>Name:</label>
+            <input type="text" id="name" required />
+
+            <label>Course:</label>
+            <input type="text" id="course" required />
+
+            <label>Rating:</label>
+            <select id="rating" required>
+                <option value="">Select Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label>Comments:</label>
+            <textarea id="comments" rows="4" required></textarea>
+
+            <label>Upload File:</label>
+            <input type="file" id="fileUpload" required />
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="success">Feedback submitted successfully!</div>
+    </div>
+
+    <script>
+        document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let course = document.getElementById("course").value.trim();
+            let rating = document.getElementById("rating").value;
+            let comments = document.getElementById("comments").value.trim();
+            let file = document.getElementById("fileUpload").files.length;
+
+            // Name validation: No numbers allowed
+            let namePattern = /^[A-Za-z\s]+$/;
+            if (!namePattern.test(name)) {
+                alert("Name should contain only alphabets.");
+                return;
+            }
+
+            // Course validation (optional)
+            let coursePattern = /^[A-Za-z\s]+$/;
+            if (!coursePattern.test(course)) {
+                alert("Course should contain only alphabets.");
+                return;
+            }
+
+            // Check empty fields
+            if (!name || !course || !rating || !comments || file === 0) {
+                alert("Please fill all fields and upload a file.");
+                return;
+            }
+
+            document.getElementById("success").style.display = "block";
+            document.getElementById("feedbackForm").reset();
+        });
+    </script>
+</body>
+</html>
